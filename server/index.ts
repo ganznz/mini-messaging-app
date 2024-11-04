@@ -1,20 +1,13 @@
-import { config } from "dotenv";
-import { fileURLToPath } from "url";
-import path from "path";
+// load server env vars before anything else
+import "./config/init.js";
+import { getDBClient } from "./config/database.js";
 
 import express, { Request, Response } from "express";
-import { connectDB } from "./config/database.js";
 
 const PORT = 8080;
 
-// get dir name of the current module
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-// configure dotenv w/ the explicit path
-// gotta do this because the cmd that executes this file isn't in same dir as this file
-config({ path: path.resolve(__dirname, ".env") });
-
 const app = express();
-const dbClient = await connectDB();
+const dbClient = await getDBClient();
 
 app.get("/", async (req: Request, res: Response) => {
     try {
@@ -33,3 +26,5 @@ app.get("/new", (req: Request, res: Response) => {});
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
+
+// app.get("/new", async (req: Request))
