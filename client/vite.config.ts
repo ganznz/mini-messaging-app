@@ -9,11 +9,11 @@ export default defineConfig({
     plugins: [react()],
     server: {
         proxy: {
-            "/": {
+            "/api": {
                 target:
                     env.VITE_ENV === "dev"
-                        ? env.VITE_APU_URL_DEV
-                        : env.VITE_APU_URL_PROD,
+                        ? env.VITE_API_URL_DEV
+                        : env.VITE_API_URL_PROD,
                 changeOrigin: true,
             },
         },
