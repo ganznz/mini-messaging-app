@@ -16,10 +16,26 @@ export const getMessages = async (limit?: number): Promise<Message[]> => {
     try {
         const results = await messagesCollection
             .find({})
-            .sort({ createdAt: -1 })
+            .sort({ added: -1 })
+            .limit(200)
             .toArray();
 
         return results;
+    } catch (err) {
+        console.error(err);
+        throw err;
+    }
+};
+
+/**
+ * Stores a message in the database
+ * @param message - The message to store
+ * @throws If there's an error storing the message in the database
+ */
+export const postMessage = async (message: Message) => {
+    try {
+        const result = await messagesCollection.insertOne(message);
+        return result;
     } catch (err) {
         console.error(err);
         throw err;
