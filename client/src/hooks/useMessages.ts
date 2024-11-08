@@ -1,19 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-
-interface MessageUnparsed {
-    _id: string;
-    user: string;
-    text: string;
-    added: string;
-}
-
-interface MessageParsed {
-    uid: string;
-    user: string;
-    text: string;
-    added: Date;
-}
+import { MessageParsed } from "@/components/schemas/schemas";
+import { parseMessages } from "@/utils/messageUtils";
 
 export const useMessages = () => {
     const [messages, setMessages] = useState<MessageParsed[]>();
@@ -37,13 +25,4 @@ export const useMessages = () => {
     }, []);
 
     return { messages, loading, err };
-};
-
-const parseMessages = (msgs: MessageUnparsed[]) => {
-    return msgs.map((msg) => ({
-        uid: msg._id,
-        user: msg.user,
-        text: msg.text,
-        added: new Date(msg.added),
-    }));
 };
