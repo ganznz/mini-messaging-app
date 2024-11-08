@@ -30,13 +30,16 @@ export const MessageForm = ({ setFormOpen }: IMessageForm) => {
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            username: "",
-            msg: "",
+            user: "",
+            text: "",
         },
     });
 
     // submit handler
-    const onSubmit = (data: z.infer<typeof formSchema>) => submitMessage(data);
+    const onSubmit = async (data: z.infer<typeof formSchema>) => {
+        const success = await submitMessage(data);
+        if (success) setFormOpen(false);
+    };
 
     return (
         // form backdrop that takes up entire screen
@@ -62,7 +65,7 @@ export const MessageForm = ({ setFormOpen }: IMessageForm) => {
                         {/* username field */}
                         <FormField
                             control={form.control}
-                            name="username"
+                            name="user"
                             render={({ field }) => (
                                 <FormItem>
                                     <span className="flex gap-4 items-center">
@@ -84,7 +87,7 @@ export const MessageForm = ({ setFormOpen }: IMessageForm) => {
                         {/* message field */}
                         <FormField
                             control={form.control}
-                            name="msg"
+                            name="text"
                             render={({ field }) => (
                                 <FormItem>
                                     <span className="flex gap-4 items-center">
