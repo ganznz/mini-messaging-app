@@ -11,7 +11,7 @@ export const useSubmitMessage = () => {
     const submitMessage = async (data: z.infer<typeof formSchema>) => {
         try {
             setLoading(true);
-            const res = await axios.post("/new", JSON.stringify(data), {
+            const res = await axios.post("/api/new", JSON.stringify(data), {
                 headers: {
                     "Content-Type": "application/json",
                 },
