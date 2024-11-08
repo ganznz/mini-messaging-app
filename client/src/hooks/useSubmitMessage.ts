@@ -16,11 +16,14 @@ export const useSubmitMessage = () => {
                     "Content-Type": "application/json",
                 },
             });
-            if (res.status !== 200) throw new Error("Failed to submit message");
+            if (res.status !== 201) throw new Error("Failed to submit message");
 
             return true;
         } catch (err) {
+            console.error(err);
             setErr(err as Error);
+        } finally {
+            setLoading(false);
         }
     };
 
