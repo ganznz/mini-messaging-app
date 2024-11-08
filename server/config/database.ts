@@ -1,4 +1,6 @@
 import { MongoClient, ServerApiVersion } from "mongodb";
+import { Message } from "../schema.js";
+import { handleMessageChange } from "../services/messageService.js";
 
 let dbClient: MongoClient;
 let initializationPromise: Promise<MongoClient>;
@@ -13,11 +15,19 @@ export const connectDB = async (): Promise<MongoClient> => {
             deprecationErrors: true,
         },
     });
-
     await client.connect();
     console.log("Connected to DB");
 
     dbClient = client;
+
+    // initialize change stream
+    const messageCollection = dbClient
+        .db("miniMessagingAppDb")
+        .collection<Message>("messages");
+
+    const changeStream = messageCollection.watch();
+    changeStream.on("change", handleMessageChange);
+
     return dbClient;
 };
 
