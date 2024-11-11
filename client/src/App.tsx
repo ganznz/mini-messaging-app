@@ -2,6 +2,7 @@ import { Navbar } from "@/components/composite/Navbar";
 import { MessageDisplay } from "@/components/composite/MessageDisplay";
 import { MessageForm } from "@/components/composite/MessageForm";
 import { Button } from "./components/ui/button";
+import { ColourProvider } from "@/contexts/ColourContext";
 
 import { useState } from "react";
 
@@ -9,7 +10,7 @@ function App() {
     const [formOpen, setFormOpen] = useState(false);
 
     return (
-        <>
+        <ColourProvider>
             {/* navbar */}
             <Navbar className="p-4 flex-col items-center group sm:flex-row">
                 <h1 className="text-2xl font-bold sm:mr-auto">
@@ -28,7 +29,7 @@ function App() {
 
             {/* message form */}
             {formOpen && <MessageForm setFormOpen={setFormOpen} />}
-        </>
+        </ColourProvider>
     );
 }
 
