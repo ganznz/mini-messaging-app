@@ -4,7 +4,10 @@ import "./config/init.js";
 import { createServer } from "http";
 import { Server } from "socket.io";
 import express from "express";
+
 import { getMessages, createMessage } from "./controllers/controller.js";
+import { errorHandler } from "./controllers/middleware.js";
+import { Response, Request, NextFunction } from "express";
 
 const PORT = 8080;
 
@@ -41,6 +44,11 @@ app.post("/api/new", createMessage);
 
 httpServer.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
+});
+
+// error handling middleware
+app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
+    errorHandler(err, req, res, next);
 });
 
 export { io };
