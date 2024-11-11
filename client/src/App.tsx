@@ -11,24 +11,26 @@ function App() {
 
     return (
         <ColourProvider>
-            {/* navbar */}
-            <Navbar className="p-4 flex-col items-center group sm:flex-row">
-                <h1 className="text-2xl font-bold sm:mr-auto">
-                    Mini Messaging App
-                </h1>
-                <Button
-                    className="text-lg bg-[hsl(var(--dark-grey))] hover:bg-[hsl(var(--green))] hover:text-[hsl(var(--green-foreground))] transition-all duration-200"
-                    onClick={() => setFormOpen(true)}
-                >
-                    Send Message
-                </Button>
-            </Navbar>
+            <div className="flex flex-col h-screen w-screen">
+                {/* navbar */}
+                <Navbar className="p-4 flex-col items-center group sm:flex-row">
+                    <h1 className="text-2xl font-bold sm:mr-auto">
+                        Mini Messaging App
+                    </h1>
+                    <Button
+                        className="text-lg bg-[hsl(var(--dark-grey))] hover:bg-[hsl(var(--green))] hover:text-[hsl(var(--green-foreground))] transition-all duration-200"
+                        onClick={() => setFormOpen(true)}
+                    >
+                        Send Message
+                    </Button>
+                </Navbar>
 
-            {/* message display */}
-            <MessageDisplay />
+                {/* message display */}
+                <MessageDisplay />
 
-            {/* message form */}
-            {formOpen && <MessageForm setFormOpen={setFormOpen} />}
+                {/* message form */}
+                {formOpen && <MessageForm setFormOpen={setFormOpen} />}
+            </div>
         </ColourProvider>
     );
 }

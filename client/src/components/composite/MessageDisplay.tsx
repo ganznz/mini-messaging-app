@@ -26,19 +26,23 @@ export const MessageDisplay = () => {
         <div className="w-full h-full overflow-scroll p-4">
             {loading && <p>Loading messages...</p>}
             {err && <p>Error: {err.message}</p>}
-            {messages
-                ? messages.map(({ uid, user, text, added }) => {
-                      // message card
-                      return (
-                          <MessageCard
-                              key={uid}
-                              user={user}
-                              message={text}
-                              added={added}
-                          />
-                      );
-                  })
-                : "No messages..."}
+            {messages && messages.length > 0 ? (
+                messages.map(({ uid, user, text, added }) => {
+                    // message card
+                    return (
+                        <MessageCard
+                            key={uid}
+                            user={user}
+                            message={text}
+                            added={added}
+                        />
+                    );
+                })
+            ) : (
+                <h2 className="text-center place-self-center mt-[25vh] text-xl text-gray-600">
+                    No messages. Send one!
+                </h2>
+            )}
         </div>
     );
 };
