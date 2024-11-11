@@ -7,7 +7,9 @@ let initializationPromise: Promise<MongoClient>;
 
 export const connectDB = async (): Promise<MongoClient> => {
     if (dbClient) return dbClient;
-    const uri = `mongodb+srv://${process.env.MONGODB_CONNECTION_CREDENTIALS}@cluster0.e7dld.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
+    const dbCredentials = process.env.MONGODB_CONNECTION_CREDENTIALS;
+    const clusterName = process.env.MONGODB_CLUSTER_NAME;
+    const uri = `mongodb+srv://${dbCredentials}@${clusterName}.e7dld.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
     const client = new MongoClient(uri, {
         serverApi: {
             version: ServerApiVersion.v1,
